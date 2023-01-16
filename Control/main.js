@@ -12,7 +12,7 @@ const Calcular = (tipo, valor) =>
             }
             else
             {
-                let resultado = eval(document.getElementById('resultado').value)
+                let resultado = eval(document.getElementById('resultado').value).toFixed(2)
                 document.getElementById('resultado').value = resultado
                 console.log(resultado)
             }  
@@ -34,14 +34,14 @@ const Calcular = (tipo, valor) =>
 // Função para o click das teclas do teclado
 const numPress = (evt) =>{
     let keyPressed = evt.key || evt.keyCode
-    let allowedKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-", "*", "/"]
+    let allowedKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-", "*", "/","."]
     let currentValue = document.getElementById('resultado').value
     if (evt.keyCode === 8)
     {
         currentValue = currentValue.slice(0,-1);
     } else if (evt.keyCode === 13) {
         try {
-            let resultado = eval(currentValue)
+            let resultado = eval(currentValue).toFixed(2)
             document.getElementById('resultado').value = resultado
         } catch (e) {
             document.getElementById('resultado').value = 'Error'
