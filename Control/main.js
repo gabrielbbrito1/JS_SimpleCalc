@@ -1,4 +1,9 @@
+/* Neste código utilizei o toFixed para amenizar os problemas de calculos precisos com decimais, apesar de não ser a melhor opção para correção
+do problema, serve como forma de estudo e demonstração.*/
+
 // função pra os clicks dos botoes
+/* Cada botão possui um tipo e um valor, a ideia é que cada botão seja separado de acordo com a sua funcionalidade, os botões de ação ( +, -, * ,/, c, =)
+realizaram as suas respectivas ações e os botões de valor serão adicionados a caixa de texto da calculadora. */
 const Calcular = (tipo, valor) =>
 {
     try {
@@ -12,9 +17,11 @@ const Calcular = (tipo, valor) =>
             }
             else
             {
-                let resultado = eval(document.getElementById('resultado').value).toFixed(2)
+                let resultado = eval(document.getElementById('resultado').value)
+                if (resultado % 1 !== 0) {
+                    resultado = resultado.toFixed(2)
+                }
                 document.getElementById('resultado').value = resultado
-                console.log(resultado)
             }  
         }
         else if(tipo === 'valor')
@@ -31,7 +38,10 @@ const Calcular = (tipo, valor) =>
     }
    
 }
-// Função para o click das teclas do teclado
+// Função para o o click das teclas
+/* A ideia da função é que apenas as teclas na lista allowedKeys possam ser digitadas, Caso a keyCode da tecla seja 8(backspace) ele vai realizar um slice na
+ultima posição da string, caso seja 13(Enter), o resultado será avaliado(eval) e mostrado na caixa de texto, se nao for nenhuma das teclas permitidas
+o preventDefault() será acionado, previnindo a passagem de qualquer caracter indesejado para a caixa de texto da calculadora */
 const numPress = (evt) =>{
     let keyPressed = evt.key || evt.keyCode
     let allowedKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-", "*", "/","."]
@@ -41,7 +51,10 @@ const numPress = (evt) =>{
         currentValue = currentValue.slice(0,-1);
     } else if (evt.keyCode === 13) {
         try {
-            let resultado = eval(currentValue).toFixed(2)
+            let resultado = eval(currentValue)
+            if (parseFloat(resultado) % 1 !== 0) {
+                resultado = resultado.toFixed(2)
+            }
             document.getElementById('resultado').value = resultado
         } catch (e) {
             document.getElementById('resultado').value = 'Error'
